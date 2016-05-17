@@ -31,12 +31,10 @@ local players = minetest.get_connected_players()
   end
 end
 
--- register global step
-local stepTime = 0
-minetest.register_globalstep(function(dtime)
-	stepTime = stepTime + dtime
-	if stepTime > 1 then
-	      checkPlayers() -- call function
-	      stepTime = 0
-	end
+local check_throttle = 1
+local function check_tick()
+	checkPlayers() -- call function
+	minetest.after(check_throttle, check_tick)
 end)
+-- register globalstep after the server starts
+minetest.after(1, check_tick)
