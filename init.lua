@@ -42,6 +42,6 @@ local check_throttle = 1
 local function check_tick()
 	checkPlayers() -- call function
 	minetest.after(check_throttle, check_tick)
-end)
+end
 -- register globalstep after the server starts
 minetest.after(1, check_tick)
